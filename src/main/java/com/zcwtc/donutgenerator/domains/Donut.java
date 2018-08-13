@@ -78,7 +78,7 @@ public class Donut {
         }
 
         if(donut.getPrice() != null) {
-            this.price = base.getPrice();
+            this.price = donut.getPrice();
         }
     }
 }
