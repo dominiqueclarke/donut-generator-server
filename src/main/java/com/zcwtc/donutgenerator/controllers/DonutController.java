@@ -30,9 +30,19 @@ public class DonutController {
 
     @RequestMapping(value = "/donuts", method = RequestMethod.POST)
     public ResponseEntity<Donut> store(@RequestBody Donut donut) {
-        System.out.println(donut.getBase());
         Donut savedDonut = donutRepository.save(donut);
         return new ResponseEntity<>(savedDonut, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/donuts/{donutId}", method = RequestMethod.PUT)
+    public ResponseEntity<Donut> update(@PathVariable Long donutId, @RequestBody Donut donut) {
+        Donut foundDonut = donutRepository.findById(donutId).get();
+
+        foundDonut.update(donut);
+
+        Donut savedTopping = donutRepository.save(foundDonut);
+
+        return new ResponseEntity<>(savedTopping, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/donuts/{donutId}", method = RequestMethod.DELETE)

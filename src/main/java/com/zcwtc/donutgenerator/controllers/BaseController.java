@@ -23,7 +23,7 @@ public class BaseController {
         return new ResponseEntity<>(baseRepository.findAll(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/base/{baseId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/bases/{baseId}", method = RequestMethod.GET)
     public ResponseEntity<Base> show(@PathVariable Long baseId) {
         return new ResponseEntity<>(baseRepository.findById(baseId).get(), HttpStatus.OK);
     }
@@ -32,6 +32,17 @@ public class BaseController {
     public ResponseEntity<Base> store(@RequestBody Base base) {
         Base savedBase = baseRepository.save(base);
         return new ResponseEntity<>(savedBase, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/bases/{baseId}", method = RequestMethod.PUT)
+    public ResponseEntity<Base> update(@PathVariable Long baseId, @RequestBody Base base) {
+        Base foundBase = baseRepository.findById(baseId).get();
+
+        foundBase.update(base);
+
+        Base savedBase = baseRepository.save(foundBase);
+
+        return new ResponseEntity<>(savedBase, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/bases/{baseId}", method = RequestMethod.DELETE)

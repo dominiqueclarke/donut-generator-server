@@ -34,16 +34,16 @@ public class ToppingController {
         return new ResponseEntity<>(savedTopping, HttpStatus.CREATED);
     }
 
-//    @RequestMapping(value = "/toppings/{toppingId}", method = RequestMethod.PUT)
-//    public ResponseEntity<Topping> update(@PathVariable Long toppingId, @RequestBody Topping topping) {
-//        Topping foundTopping = toppingRepository.findById(toppingId).get();
-//
-//        topping.update(topping);
-//
-//        Topping savedDog = toppingRepository.save(foundTopping);
-//
-//        return new ResponseEntity<>(savedDog, HttpStatus.OK);
-//    }
+    @RequestMapping(value = "/toppings/{toppingId}", method = RequestMethod.PUT)
+    public ResponseEntity<Topping> update(@PathVariable Long toppingId, @RequestBody Topping topping) {
+        Topping foundTopping = toppingRepository.findById(toppingId).get();
+
+        foundTopping.update(topping);
+
+        Topping savedTopping = toppingRepository.save(foundTopping);
+
+        return new ResponseEntity<>(savedTopping, HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/toppings/{toppingId}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> destroy(@PathVariable Long toppingId) {
@@ -51,12 +51,4 @@ public class ToppingController {
 
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
-
-//    @RequestMapping(value = "/dogs/{dogId}/walkers", method = RequestMethod.GET)
-//    public ResponseEntity<Walker> getWalker(@PathVariable Long dogId) {
-//        Long walkerId = dogRepository.getWalkerIdByDogId(dogId);
-//        Walker walker = walkerRepository.findById(walkerId).get();
-//
-//        return new ResponseEntity<>(walker, HttpStatus.OK);
-//    }
 }
