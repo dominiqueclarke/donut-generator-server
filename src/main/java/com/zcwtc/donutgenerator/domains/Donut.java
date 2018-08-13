@@ -1,6 +1,7 @@
 package com.zcwtc.donutgenerator.domains;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
@@ -15,6 +16,33 @@ public class Donut {
 
     @ManyToOne
     private Base base;
+
+    private BigDecimal price;
+
+    public Donut() {
+
+    }
+
+    public Donut(Long id, Set<Topping> toppings, Base base, BigDecimal price) {
+        this.id = id;
+        this.toppings = toppings;
+        this.base = base;
+        this.price = price;
+    }
+
+    public Donut(Set<Topping> toppings, Base base, BigDecimal price) {
+        this.toppings = toppings;
+        this.base = base;
+        this.price = price;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Set<Topping> getToppings() {
         return toppings;
@@ -32,11 +60,25 @@ public class Donut {
         this.base = base;
     }
 
-    public Long getId() {
-        return id;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public void update(Donut donut) {
+        if(donut.getToppings() != null) {
+            this.toppings = donut.getToppings();
+        }
+
+        if(donut.getBase() != null) {
+            this.base = donut.getBase();
+        }
+
+        if(donut.getPrice() != null) {
+            this.price = base.getPrice();
+        }
     }
 }
